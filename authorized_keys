@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -e
+
+keyfile=$(mktemp --suffix=.gpg)
+trap "rm $keyfile" EXIT
+
+curl --silent --show-error --fail \
+    "https://keybase.io/neersighted/key.asc" \
+| gpg --dearmor > $keyfile
+
+curl --silent --show-error --fail \
+    "https://neer.io/authorized_keys/$1" \
+| gpgv --keyring $keyfile --output -
