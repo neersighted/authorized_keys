@@ -6,9 +6,9 @@ keyfile=$(mktemp --suffix=.gpg)
 trap "rm $keyfile" EXIT
 
 curl --silent --show-error --fail \
-    "https://keybase.io/neersighted/key.asc" \
+    "https://neersighted.keybase.pub/pgp.asc" \
 | gpg --dearmor > $keyfile
 
 curl --silent --show-error --fail \
-    "https://neer.io/authorized_keys/$1" \
+    "https://neersighted.keybase.pub/authorized_keys.asc" \
 | gpgv --keyring $keyfile --output -
